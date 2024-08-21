@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://uftpolud0r8x"]
+
+[ext_resource type="Texture2D" uid="uid://dy57hedwvokiu" path="res://assets/png/prototype_textures/dark/texture_01.png" id="1_h4akj"]
+[ext_resource type="PackedScene" uid="uid://ctj05kl6sedbm" path="res://objects/player.tscn" id="2_kk7k6"]
+
+[sub_resource type="Environment" id="Environment_42yhu"]
+background_mode = 1
+background_color = Color(0.142185, 0.139305, 0.143586, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qwlhh"]
+albedo_texture = ExtResource("1_h4akj")
+uv1_triplanar = true
+
+[node name="World" type="Node3D"]
+
+[node name="WorldEnv" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_42yhu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnv"]
+transform = Transform3D(0.91919, -0.333, 0.210238, 0, 0.533851, 0.845579, -0.393814, -0.777248, 0.49071, 0, 5.03827, 0)
+
+[node name="Floor" type="CSGBox3D" parent="."]
+material_override = SubResource("StandardMaterial3D_qwlhh")
+size = Vector3(500, 0.1, 500)
+
+[node name="Player" parent="." instance=ExtResource("2_kk7k6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27476, 0)
