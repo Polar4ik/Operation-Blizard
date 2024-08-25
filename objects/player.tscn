@@ -1,10 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctj05kl6sedbm"]
+[gd_scene load_steps=8 format=3 uid="uid://ctj05kl6sedbm"]
 
 [ext_resource type="Script" path="res://scripts/controllers/head_controller.gd" id="1_3kq51"]
+[ext_resource type="Script" path="res://scripts/player/motion_body.gd" id="1_sh17k"]
+[ext_resource type="Script" path="res://scripts/fsm/fsm_tree.gd" id="3_pitdp"]
+[ext_resource type="Script" path="res://scripts/player/fsm/idle.gd" id="4_gw376"]
+[ext_resource type="Script" path="res://scripts/player/fsm/run.gd" id="5_qikmk"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6jbd4"]
 
+[sub_resource type="GDScript" id="GDScript_lrqgy"]
+script/source = "extends Label
+
+func _process(_delta: float) -> void:
+	text = $\"../../../FSMTree\".current_state.name
+"
+
 [node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_sh17k")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_6jbd4")
@@ -15,4 +27,38 @@ script = ExtResource("1_3kq51")
 
 [node name="MainCamera" type="Camera3D" parent="Head"]
 
-[node name="Node" type="Node" parent="."]
+[node name="FSMTree" type="Node" parent="." node_paths=PackedStringArray("init_state")]
+script = ExtResource("3_pitdp")
+init_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="FSMTree"]
+script = ExtResource("4_gw376")
+
+[node name="Run" type="Node" parent="FSMTree"]
+script = ExtResource("5_qikmk")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -102.0
+offset_right = 195.0
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 30
+text = "State"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = SubResource("GDScript_lrqgy")
