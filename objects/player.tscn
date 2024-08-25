@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctj05kl6sedbm"]
+[gd_scene load_steps=9 format=3 uid="uid://ctj05kl6sedbm"]
 
 [ext_resource type="Script" path="res://scripts/controllers/head_controller.gd" id="1_3kq51"]
 [ext_resource type="Script" path="res://scripts/player/motion_body.gd" id="1_sh17k"]
 [ext_resource type="Script" path="res://scripts/fsm/fsm_tree.gd" id="3_pitdp"]
 [ext_resource type="Script" path="res://scripts/player/fsm/idle.gd" id="4_gw376"]
 [ext_resource type="Script" path="res://scripts/player/fsm/run.gd" id="5_qikmk"]
+[ext_resource type="Script" path="res://scripts/components/stamina_component.gd" id="6_64mgp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6jbd4"]
 
@@ -36,6 +37,9 @@ script = ExtResource("4_gw376")
 
 [node name="Run" type="Node" parent="FSMTree"]
 script = ExtResource("5_qikmk")
+
+[node name="Stamina" type="Node" parent="."]
+script = ExtResource("6_64mgp")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

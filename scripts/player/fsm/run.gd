@@ -1,4 +1,5 @@
 extends State
+class_name MoveableState
 
 var motion_body: MotionBody
 var head: Marker3D
