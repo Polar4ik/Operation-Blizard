@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://scripts/fsm/fsm_tree.gd" id="3_pitdp"]
 [ext_resource type="Script" path="res://scripts/player/fsm/idle.gd" id="4_gw376"]
 [ext_resource type="Script" path="res://scripts/player/fsm/run.gd" id="5_qikmk"]
-[ext_resource type="Script" path="res://scripts/components/stamina_component.gd" id="6_64mgp"]
+[ext_resource type="Script" path="res://scripts/components/hp_component.gd" id="6_2lrdw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6jbd4"]
 
@@ -38,8 +38,8 @@ script = ExtResource("4_gw376")
 [node name="Run" type="Node" parent="FSMTree"]
 script = ExtResource("5_qikmk")
 
-[node name="Stamina" type="Node" parent="."]
-script = ExtResource("6_64mgp")
+[node name="HpComponent" type="Node" parent="."]
+script = ExtResource("6_2lrdw")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
