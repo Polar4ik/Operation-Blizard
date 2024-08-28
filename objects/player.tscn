@@ -17,6 +17,7 @@ func _process(_delta: float) -> void:
 "
 
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_sh17k")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
