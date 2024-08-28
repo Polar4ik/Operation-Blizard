@@ -1,0 +1,87 @@
+[gd_scene load_steps=10 format=3 uid="uid://ctj05kl6sedbm"]
+
+[ext_resource type="Script" path="res://scripts/player/motion_body.gd" id="1_4bdkx"]
+[ext_resource type="Script" path="res://scripts/controllers/head_controller.gd" id="2_aa6b1"]
+[ext_resource type="Script" path="res://scripts/fsm/fsm_tree.gd" id="3_0ause"]
+[ext_resource type="Script" path="res://scripts/player/fsm/idle.gd" id="4_tduef"]
+[ext_resource type="Script" path="res://scripts/player/fsm/run.gd" id="5_u47by"]
+[ext_resource type="Script" path="res://scripts/player/fsm/fall.gd" id="6_xgjuh"]
+[ext_resource type="Script" path="res://scripts/components/hp_component.gd" id="7_s3bqj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6jbd4"]
+
+[sub_resource type="GDScript" id="GDScript_lrqgy"]
+script/source = "extends Label
+
+func _process(_delta: float) -> void:
+	text = $\"../../../../FSMTree\".current_state.name
+"
+
+[node name="LocalPlayer" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_4bdkx")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_6jbd4")
+
+[node name="Head" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("2_aa6b1")
+
+[node name="MainCamera" type="Camera3D" parent="Head"]
+
+[node name="FSMTree" type="Node" parent="." node_paths=PackedStringArray("init_state")]
+script = ExtResource("3_0ause")
+init_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="FSMTree"]
+script = ExtResource("4_tduef")
+
+[node name="Run" type="Node" parent="FSMTree"]
+script = ExtResource("5_u47by")
+
+[node name="Fall" type="Node" parent="FSMTree"]
+script = ExtResource("6_xgjuh")
+
+[node name="HpComponent" type="Node" parent="."]
+script = ExtResource("7_s3bqj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="HpLabel" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="StateLabel" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 30
+text = "State"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = SubResource("GDScript_lrqgy")

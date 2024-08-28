@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cm0dcccwn38jj"]
+
+[ext_resource type="PackedScene" uid="uid://uftpolud0r8x" path="res://scenes/world.tscn" id="1_canwi"]
+[ext_resource type="PackedScene" uid="uid://ctj05kl6sedbm" path="res://objects/local_player.tscn" id="2_loa7l"]
+
+[node name="Game" type="Node"]
+
+[node name="World" parent="." instance=ExtResource("1_canwi")]
+
+[node name="Player" parent="." instance=ExtResource("2_loa7l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
