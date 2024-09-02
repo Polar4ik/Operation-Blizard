@@ -14,7 +14,7 @@
 script/source = "extends Label
 
 func _process(_delta: float) -> void:
-	text = $\"../../../../FSMTree\".current_state.name
+	text = $\"../../../../../FSMTree\".current_state.name
 "
 
 [node name="LocalPlayer" type="CharacterBody3D"]
